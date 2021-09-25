@@ -1,0 +1,45 @@
+.form__container {
+  width: 20%;
+}
+
+.form__input {
+  border-radius: 0;
+  padding: 15px 20px;
+  width: 100%;
+}
+
+.form__input__error {
+  border: 3px solid red;
+}
+
+.form__error {
+  font-size: 0.7rem;
+  color: red;
+}
+
+.form__button {
+  cursor: pointer;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #2979ff;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .form__outerContainer {
+    height: 100%;
+  }
+
+  .form__innerContainer {
+    width: 90%;
+  }
+}
+
+.form__button:focus {
+  outline: 0;
+}

@@ -1,0 +1,43 @@
+.infoBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #2979ff;
+  border-radius: 4px 4px 0 0;
+  height: 60px;
+  width: 100%;
+}
+
+.infoBar__leftInnerContainer {
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  margin-left: 5%;
+  color: white;
+}
+
+.infoBar__rightInnerContainer {
+  display: flex;
+  flex: 0.5;
+  justify-content: flex-end;
+  margin-right: 5%;
+}
+
+.infoBar__onlineIcon {
+  margin-right: 5%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: lightgreen;
+}
+
+.infoBar__detailsIcon {
+  cursor: pointer;
+  color: darkgrey;
+}
+
+.infoBar__closeIcon {
+  margin-left: 5px;
+  color: white;
+  cursor: pointer;
+}
