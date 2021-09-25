@@ -19,11 +19,19 @@
 .landing__header {
   color: white;
   font-size: 2.5em;
-  /* border-bottom: 2px solid lightgrey; */
   cursor: pointer;
   padding: 0px 20px 5px 20px;
 }
 
 .landing__header__selected {
   border-bottom: 2px solid white;
+}
+
+@media (max-width: 800px) {
+  .landing__headers {
+    width: 50%;
+  }
+  .landing__header {
+    font-size: 1.5em;
+  }
 }
