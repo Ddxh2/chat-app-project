@@ -6,6 +6,8 @@ import { UserContext } from "./context";
 
 import "./App.css";
 
+// Adding a comment to ensure deployment
+
 const App = () => {
   const {
     user: { user },
