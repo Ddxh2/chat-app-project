@@ -1,38 +1,74 @@
-const users = [];
+// key --> socket id
+// value --> user's name and rooms
 
-const addUser = ({ id, name, room }) => {
-  // Format room name
-  name = name.trim().toLowerCase();
-  room = room.trim().toLowerCase();
+const users = {};
 
-  const existingUser = users.find(
-    (user) => user.room === room && user.name === name
+const USER_EXIST_ERROR = { error: { user: "User doesn't exist" } };
+
+const addUser = (id, name) => {
+  const existingUser = Object.values(users).some(
+    ({ name: userName }) => userName === name
   );
   if (!!existingUser) {
-    return { error: { name: "Username is taken" } };
+    return { error: { user: "User already exists" } };
+  } else {
+    users[id] = { name, rooms: [] };
+    return { user: { id, ...users[id] } };
   }
-
-  const user = { id, name, room };
-
-  users.push(user);
-  return {};
 };
 
-const removeUser = (id) => {
-  const index = users.findIndex((user) => user.id === id);
+const addRoomToUser = (id, roomName) => {
+  const user = users[id];
 
-  if (index !== -1) {
-    const removedUser = users.splice(index, 1)[0];
-    const numRemainingUsers = users.length;
-    return { user: removedUser, numRemainingUsers };
+  if (!user) {
+    return USER_EXIST_ERROR;
+  } else {
+    user.rooms.push(roomName);
+    return { user: { id, ...user } };
   }
-  return {};
+};
+
+const removeRoomFromUser = (id, roomName) => {
+  const user = users[id];
+
+  if (!user) {
+    return USER_EXIST_ERROR;
+  } else {
+    user.rooms = user.rooms.filter((name) => name !== roomName);
+    return { user: { id, ...user } };
+  }
 };
 
 const getUser = (id) => {
-  return users.find((user) => user.id === id);
+  const user = users[id];
+  if (!user) {
+    return USER_EXIST_ERROR;
+  } else {
+    return { user: { id, ...user } };
+  }
 };
 
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
+const getUsers = (ids) => {
+  const usersByIds = ids.reduce((usersArray, userId) => {
+    const user = users[userId];
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom };
+    if (user !== undefined) {
+      usersArray.push({ userId, ...user });
+    }
+    return usersArray;
+  }, []);
+  return { users: usersByIds };
+};
+
+const deleteUser = (id) => {
+  delete users[id];
+};
+
+module.exports = {
+  addUser,
+  addRoomToUser,
+  removeRoomFromUser,
+  getUser,
+  getUsers,
+  deleteUser,
+};

@@ -1,10 +1,21 @@
-const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 const {
-  getMessagesInRoom,
-  addMessageToRoom,
-  clearMessagesFromRoom,
-} = require("./messages");
-const { createRoom, joinRoom, closeRoom } = require("./rooms");
+  addUser,
+  addRoomToUser,
+  removeRoomFromUser,
+  getUser,
+  deleteUser,
+} = require("./users");
+const {
+  openRoom,
+  joinRoom,
+  leaveRoom,
+  closeRoom,
+  getRoomData,
+  addMessage,
+  getMessages,
+} = require("./rooms");
+
+const MESSAGE_TYPES = { TEXT: "TEXT", IMAGE: "IMAGE", ADMIN: "ADMIN" };
 
 const prepareIo = (io) => {
   io.on("connection", (...args) => onConnection(...args, io));
@@ -13,113 +24,179 @@ const prepareIo = (io) => {
 const onConnection = (socket, io) => {
   const ioArgs = [socket, io];
 
-  socket.on("open", (...args) => onOpen(...args, ...ioArgs));
+  const callbackWrapper =
+    (callback) =>
+    (...args) =>
+      callback(...args, ...ioArgs);
 
-  socket.on("join", (...args) => onJoin(...args, ...ioArgs));
+  socket.on("signUp", callbackWrapper(onSignUp));
 
-  socket.on("joined", (...args) => onJoined(...args, ...ioArgs));
+  socket.on("open", callbackWrapper(onOpen));
 
-  socket.on("sendMessage", (...args) => onSendMessage(...args, ...ioArgs));
+  socket.on("join", callbackWrapper(onJoin));
+
+  socket.on("joined", callbackWrapper(onJoined));
+
+  socket.on("leave", callbackWrapper(onLeave));
+
+  socket.on("sendMessage", callbackWrapper(onSendMessage));
+
+  socket.on("getRoomData", callbackWrapper(onGetRoomData));
+
+  socket.on("logout", callbackWrapper(onLogOut));
 
   socket.on("disconnect", () => onDisconnect(...ioArgs));
 };
 
-const onOpen = ({ name, room, password }, callback, socket, io) => {
-  const { error } = createRoom(room, password);
-  // error = {room: "..."}
+const onSignUp = (name, callback, socket) => {
+  const { error, user } = addUser(socket.id, name);
   if (!!error) {
     return callback({ error });
   } else {
-    onJoin({ name, room, password }, callback, socket, io);
+    return callback({ user });
   }
 };
 
-const onJoin = ({ name, room, password }, callback, socket, io) => {
-  const { error: joinError } = joinRoom(room, password);
-  // joinError = {room : "..."} or {password: "..."}
+const onOpen = (roomToOpen, callback, socket) => {
+  const { name, passcode } = roomToOpen;
+  const { error: openError, room } = openRoom(name, passcode);
+
+  if (!!openError) {
+    return callback({ error: openError });
+  } else {
+    onJoin(room, callback, socket);
+  }
+};
+
+const onJoin = (room, callback, socket) => {
+  const { id } = socket;
+  const { name, passcode } = room;
+
+  const { error: joinError, room: joinedRoom } = joinRoom(name, passcode, id);
 
   if (!!joinError) {
-    return callback({
-      error: joinError,
-    });
+    return callback({ error: joinError });
   }
 
-  const { error: addError } = addUser({ id: socket.id, name, room });
-  // addError = {name: "..."}
+  const { error: userError, user } = addRoomToUser(id, name);
 
-  if (!!addError) {
-    return callback({ error: addError });
+  if (!!userError) {
+    leaveRoom(name, id);
+    return callback({ error: userError });
   }
 
-  callback({});
+  const adminMessage = {
+    authorId: MESSAGE_TYPES.ADMIN,
+    type: MESSAGE_TYPES.ADMIN,
+    content: `${user.name} has joined!`,
+    createdAt: new Date().toISOString(),
+  };
+
+  const { error: addMessageError } = addMessage(name, adminMessage);
+
+  if (!!addMessageError) {
+    return callback({ error: addMessageError });
+  }
+  socket.broadcast.to(name).emit("message", adminMessage, name);
+
+  socket.join(name);
+
+  return callback({ user, room: joinedRoom });
 };
 
-const onJoined = (callback, socket, io) => {
-  const user = getUser(socket.id) || {};
+const onJoined = (roomName, callback, socket) => {
+  const { error: userError, user } = getUser(socket.id);
 
-  socket.emit("getPreviousMessages", getMessagesInRoom(user.room));
-
-  socket.emit("message", {
-    user: "admin",
-    text: `${user.name}, welcome to the room: ${user.room}`,
-  });
-
-  socket.broadcast
-    .to(user.room)
-    .emit("message", { user: "admin", text: `${user.name} has joined!` });
-
-  addMessageToRoom(user.room, {
-    user: "admin",
-    text: `${user.name} has joined!`,
-  });
-
-  socket.join(user.room);
-
-  io.to(user.room).emit("roomData", {
-    room: user.room,
-    users: getUsersInRoom(user.room),
-  });
-
-  callback({});
-};
-
-const onSendMessage = (message, callback, socket, io) => {
-  const user = getUser(socket.id);
-
-  if (!user) {
-    return callback({ error: "An Error occured" });
+  if (!!userError) {
+    return callback({ error: userError });
   }
 
-  io.to(user.room).emit("message", { user: user.name, text: message });
-  addMessageToRoom(user.room, { user: user.name, text: message });
+  const { error: getError, messages: previousMessages } = getMessages(roomName);
+
+  if (!!getError) {
+    return callback({ error: getError });
+  }
+
+  callback({ user, messages: previousMessages });
+};
+
+const onSendMessage = (roomName, message, callback, socket, io) => {
+  const { error, message: addedMessage } = addMessage(roomName, message);
+
+  if (!!error) {
+    return callback({ error });
+  } else {
+    io.to(roomName).emit("message", addedMessage, roomName);
+    socket.broadcast.to(roomName).emit("notification", roomName);
+    callback({ message: addedMessage });
+  }
+};
+
+const onLeave = (roomName, callback, socket, io) => {
+  const { error: userError, user } = getUser(socket.id);
+
+  if (!!userError) {
+    return callback({ error: userError });
+  }
+
+  const { error: roomError } = leaveRoom(roomName, socket.id);
+
+  if (!!roomError) {
+    return callback({ error: roomError });
+  } else {
+    removeRoomFromUser(socket.id, roomName);
+
+    const adminUserLeftMessage = {
+      authorId: MESSAGE_TYPES.ADMIN,
+      type: MESSAGE_TYPES.ADMIN,
+      content: `${user.name} has left`,
+      createdAt: new Date().toISOString(),
+    };
+
+    addMessage(roomName, adminUserLeftMessage);
+
+    io.to(roomName).emit("message", adminUserLeftMessage, roomName);
+
+    callback({});
+  }
+};
+
+const onGetRoomData = (roomName, callback) => {
+  const { roomData } = getRoomData(roomName);
+
+  callback(roomData);
+};
+
+const onLogOut = (callback, socket, io) => {
+  const { user } = getUser(socket.id);
+  const userRooms = (!!user && user.rooms) || [];
+
+  userRooms.forEach((roomName) => {
+    const { room } = leaveRoom(roomName, socket.id);
+    const numRemainingUsers = room.users.length;
+    if (numRemainingUsers === 0) {
+      closeRoom(roomName);
+    } else {
+      const adminUserLeftMessage = {
+        authorId: MESSAGE_TYPES.ADMIN,
+        type: MESSAGE_TYPES.ADMIN,
+        content: `${user.name} has left`,
+        createdAt: new Date().toISOString(),
+      };
+
+      addMessage(roomName, adminUserLeftMessage);
+
+      io.to(roomName).emit("message", adminUserLeftMessage, roomName);
+    }
+  });
+
+  deleteUser(socket.id);
 
   callback();
 };
 
 const onDisconnect = (socket, io) => {
-  const { user, numRemainingUsers } = removeUser(socket.id);
-
-  if (!!user && numRemainingUsers > 0) {
-    io.to(user.room).emit("message", {
-      user: "admin",
-      text: `${user.name} has left`,
-    });
-
-    addMessageToRoom(user.room, {
-      user: "admin",
-      text: `${user.name} has left`,
-    });
-
-    io.to(user.room).emit("roomData", {
-      room: user.room,
-      users: getUsersInRoom(user.room),
-    });
-  }
-
-  if (numRemainingUsers === 0) {
-    closeRoom(user.room);
-    clearMessagesFromRoom(user.room);
-  }
+  onLogOut(() => {}, socket, io);
 };
 
 module.exports = prepareIo;

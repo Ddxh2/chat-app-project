@@ -1,0 +1,68 @@
+.chatRoomCard__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid grey;
+  padding: 20px 0px;
+  cursor: pointer;
+}
+
+.chatRoomCard__container:hover {
+  background-color: #d0d0d0;
+  transition: background-color 0.1s ease-in;
+}
+
+.chatRoomCard__container__active {
+  background-color: #d0d0d0;
+}
+
+.chatRoomCard__left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.chatRoomCard__notification {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: orangered;
+  margin-left: 20px;
+  animation: blink 1s infinite;
+}
+
+.chatRoomCard__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.chatRoomCard__roomName {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: black;
+}
+
+.chatRoomCard__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

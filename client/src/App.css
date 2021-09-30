@@ -3,6 +3,8 @@ body {
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to right, red, orange);
 }
 
 #root {
@@ -29,6 +31,10 @@ body {
   justify-content: flex-start;
 }
 
+.justifyCenter {
+  justify-content: center;
+}
+
 .justifyEnd {
   justify-content: flex-end;
 }
@@ -47,4 +53,69 @@ body {
 
 .backgroundLight {
   background: #f3f3f3;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 1px;
+  border-radius: 3px;
+}
+
+.icon:hover {
+  background-color: #999999;
+  transition: background-color 0.1s ease-in;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #222;
+  cursor: pointer;
+  background-color: #dddddd;
+  padding: 1px;
+  border-radius: 5px;
+  border: none;
+  padding: 2px 5px;
+}
+
+.button:hover {
+  background-color: #999999;
+  transition: background-color 0.1s ease-in;
+}
+
+.inputError {
+  border: 1px solid red;
+}
+
+.inputError__message {
+  font-size: 0.7rem;
+  color: red;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: lightgrey;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 5px;
+}
+
+input,
+textarea {
+  background-color: #fffffff0 !important;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  outline: none;
 }

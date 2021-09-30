@@ -1,0 +1,3 @@
+const MESSAGE_TYPES = { IMAGE: "IMAGE", TEXT: "TEXT", ADMIN: "ADMIN" };
+
+export default MESSAGE_TYPES;

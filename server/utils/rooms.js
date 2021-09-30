@@ -1,37 +1,113 @@
+const { getUsers } = require("./users");
+
+// room keys are room names
+// room values contain passcode, arrays of users and messages (using user ids)
+
+// message contains type, content, authorId, createdAt
+
 const rooms = {};
 
-// A room is {room: hashed-password}
+const ROOM_EXIST_ERROR = {
+  error: {
+    room: "Room doesn't exist",
+  },
+};
 
-const createRoom = (room, password) => {
-  room = room.trim().toLowerCase();
-  const existingRoom = rooms[room];
-  let error;
+// Room Related
+
+const openRoom = (roomName, passcode) => {
+  const existingRoom = rooms[roomName];
   if (!!existingRoom) {
-    error = "Room name taken";
-    return { error: { room: error } };
+    return { error: { room: "Room Name Taken" } };
   }
-  rooms[room] = password;
-  return { room };
+
+  rooms[roomName] = { passcode, users: [], messages: [] };
+  return { room: { name: roomName, ...rooms[roomName] } };
 };
 
-const joinRoom = (room, password) => {
-  room = room.trim().toLowerCase();
-  const existingPassword = rooms[room];
-  let error;
-  if (!existingPassword) {
-    error = "Room doesn't exist";
-    return { error: { room: error } };
-  } else if (existingPassword !== password) {
-    error = "Password incorrect";
-    return { error: { password: error } };
+const joinRoom = (roomName, passcode, userId) => {
+  const room = rooms[roomName];
+
+  if (!room) {
+    return ROOM_EXIST_ERROR;
+  } else if (room.passcode !== passcode) {
+    return { error: { passcode: "Incorrect Passcode" } };
+  } else if (room.users.some((id) => id === userId)) {
+    return { error: { user: "Already a Member" } };
   } else {
-    return {};
+    room.users.push(userId);
+    return { room: { name: roomName, ...room } };
   }
 };
 
-const closeRoom = (room) => {
-  delete rooms[room];
-  return;
+const leaveRoom = (roomName, userId) => {
+  const room = rooms[roomName];
+
+  if (!room) {
+    return ROOM_EXIST_ERROR;
+  } else {
+    room.users = room.users.filter((id) => id !== userId);
+    return { room: { name: roomName, ...room } };
+  }
 };
 
-module.exports = { createRoom, joinRoom, closeRoom };
+const closeRoom = (roomName) => {
+  delete rooms[roomName];
+};
+
+const getRoomData = (roomName) => {
+  const { passcode } = rooms[roomName];
+  const { users } = getUsersFromRoom(roomName);
+  const { messages } = getMessages(roomName);
+
+  return { roomData: { name: roomName, users, messages, passcode } };
+};
+
+// Users Related
+
+const getUsersFromRoom = (roomName) => {
+  const room = rooms[roomName];
+
+  if (!room) {
+    return ROOM_EXIST_ERROR;
+  } else {
+    const userIds = room.users;
+    const users = getUsers(userIds);
+    return users;
+  }
+};
+
+// Message Related
+
+const addMessage = (roomName, message) => {
+  const room = rooms[roomName];
+
+  if (!room) {
+    return ROOM_EXIST_ERROR;
+  } else {
+    room.messages.push(message);
+    return { message };
+  }
+};
+
+const getMessages = (roomName) => {
+  const room = rooms[roomName];
+
+  if (!room) {
+    return ROOM_EXIST_ERROR;
+  } else {
+    const messages = room.messages;
+    return { messages };
+  }
+};
+
+module.exports = {
+  openRoom,
+  joinRoom,
+  leaveRoom,
+  closeRoom,
+  getRoomData,
+  getUsersFromRoom,
+  addMessage,
+  getMessages,
+};

@@ -1,20 +1,22 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
-import { Chat, Landing } from "./components";
-import { IoProvider, AuthProvider } from "./components/context";
+import { ChatManager, LandingPage } from "./pages";
+import { UserContext } from "./context";
 
 import "./App.css";
 
-const App = () => (
-  <IoProvider>
-    <AuthProvider>
-      <Router>
-        <Route exact path='/' component={Landing} />
-        <Route exact path='/chat' component={Chat} />
-      </Router>
-    </AuthProvider>
-  </IoProvider>
-);
+const App = () => {
+  const {
+    user: { user },
+  } = useContext(UserContext);
+  return (
+    <Router>
+      <Route exact path='/' component={LandingPage} />
+      <Route exact path='/chat' component={ChatManager} />
+      <Redirect to={user !== "" ? "/chat" : "/"} />
+    </Router>
+  );
+};
 
 export default App;

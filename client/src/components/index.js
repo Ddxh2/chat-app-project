@@ -1,10 +1,19 @@
-import Chat from "./Chat/Chat";
+import ChatRoomsPanel from "./ChatRoomsPanel/ChatRoomsPanel";
+import ChatRooms from "./ChatRooms/ChatRooms";
+import ChatPanel from "./ChatPanel/ChatPanel";
+import Modal from "./Modal/Modal";
 import Form from "./Form/Form";
-import Landing from "./Landing/Landing";
-import InfoBar from "./InfoBar/InfoBar";
-import Details from "./Details/Details";
-import Input from "./Input/Input";
 import Messages from "./Messages/Messages";
-import Message from "./Message/Message";
+import RoomDetails from "./RoomDetails/RoomDetails";
+import Prompt from "./Prompt/Prompt";
 
-export { Chat, Form, Landing, InfoBar, Details, Input, Messages, Message };
+export {
+  ChatRoomsPanel,
+  ChatRooms,
+  ChatPanel,
+  Modal,
+  Form,
+  Messages,
+  RoomDetails,
+  Prompt,
+};

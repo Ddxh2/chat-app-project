@@ -1,0 +1,85 @@
+.roomDetails__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.roomDetails__modalImage {
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.roomDetails__statsSection {
+  border-bottom: 1px solid #222;
+  padding-bottom: 10px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomDetails__tableCell {
+  padding: 5px 10px;
+  color: #222;
+  font-weight: bold;
+  text-align: center;
+}
+
+.roomDetails__tableCell__leftAlign {
+  text-align: left;
+}
+
+.roomDetails__listsSection {
+  padding-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.roomDetails__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  width: 400px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.roomDetails__listHeader {
+  font-weight: bold;
+  color: #222;
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.roomDetails__list__user {
+  margin: 10px 0px;
+}
+
+.roomDetails__listImage__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0px;
+  cursor: pointer;
+}
+
+.roomDetails__listImage__container:hover {
+  opacity: 0.7;
+}
+
+.roomDetails__listImage {
+  max-height: 150px;
+  max-width: 150px;
+}
