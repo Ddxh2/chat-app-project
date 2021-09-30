@@ -19,6 +19,8 @@ const io = socketio(server, {
   },
 });
 
+console.log(process.env.CLIENT)
+
 prepareIo(io);
 
 app.use(router);
