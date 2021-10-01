@@ -12,7 +12,7 @@ The server side is simplistic and is not connected to any database. Rather, all 
 
 Rooms allow multiple users and on opening, **a random, 6-digit numberic passcode is generated and used to authenticate any users that attempt to join**. **Users may join multiple rooms**. Messages sent in a room are automatically sent to any users that **currently have the room as active in the client. Otherwise, a notification is registered instead.** **A user may leave a room without having to log out of the application**.
 
-**Images may be sent as messages and previously sent images may be found in the room details modal. **
+**Images may be sent as messages and previously sent images may be found in the room details modal**.
 
 ## Pre-requisites to run locally
 
