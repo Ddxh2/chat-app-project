@@ -32,7 +32,8 @@ _Remember to set the appropriate environment variables. See .env.example in /cli
 
 Below are features, changes or additional tasks that would have been beneficial to implement.
 
+- Add responsive styling that is accessible for mobile users
+- A more secure form of passcode authentication
 - More cohesive sense of styling throughout the app
 - Unit tests
-- A more secure form of passcode authentication
 - Inviting specific users to a room without the need for passcode authentication
