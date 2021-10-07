@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactEmoji from "react-emoji";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -16,23 +16,25 @@ const Modal = ({
 }) => {
   const [show, setShow] = useState(isShown);
 
-  const handleClose = (event) => {
-    event?.stopPropagation?.();
-    setShow(false);
-    onClose();
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Escape" || event.code === "Escape") {
-      handleClose();
-    }
-  };
+  const handleClose = useCallback(
+    (event) => {
+      event?.stopPropagation?.();
+      setShow(false);
+      onClose();
+    },
+    [onClose]
+  );
 
   useEffect(() => {
     setShow(isShown);
   }, [isShown]);
 
   useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" || event.code === "Escape") {
+        handleClose();
+      }
+    };
     if (!!show) {
       console.log("listener added");
       document.addEventListener("keydown", handleKeyDown);
@@ -42,7 +44,7 @@ const Modal = ({
         document.removeEventListener("keydown", handleKeyDown);
       };
     }
-  }, [show]);
+  }, [show, handleClose]);
 
   return !!show ? (
     <div className='modal__overlay' onClick={handleClose}>
