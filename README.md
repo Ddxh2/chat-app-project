@@ -1,6 +1,6 @@
 # Real Time Chat App Project (Get a Room)
 
-A project built to experiment with using socket.io to implement real-time, multi-person chatrooms. Built using Nodejs, Express, Reactjs and Socket.io. 
+A project built to experiment with using socket.io to implement real-time, multi-person chatrooms. Built using Nodejs, Express, Reactjs and Socket.io.
 
 The initial version of the app was built based off of [this tutorial by Javascript Mastery](https://youtu.be/ZwFA3YMfkoc)
 
@@ -21,10 +21,10 @@ Rooms allow multiple users and on opening, **a random, 6-digit numberic passcode
 ## Local setup
 
 1. Clone the repo
-2. cd into /client and run ```npm install``` to install all dependencies
-3. run ```npm start``` to locally start the client on port 3000
-4. cd into /server and run ```npm install``` to install all dependencies
-5. run ```npm start``` to locally start the server on port 5000 (or the port defined in /server/.env
+2. cd into /client and run `npm install` to install all dependencies
+3. run `npm start` to locally start the client on port 3000
+4. cd into /server and run `npm install` to install all dependencies
+5. run `npm start` to locally start the server on port 5000 (or the port defined in /server/.env
 
 _Remember to set the appropriate environment variables. See .env.example in /client and /server for more info_
 
@@ -34,6 +34,5 @@ Below are features, changes or additional tasks that would have been beneficial 
 
 - Add responsive styling that is accessible for mobile users
 - A more secure form of passcode authentication
-- More cohesive sense of styling throughout the app
 - Unit tests
 - Inviting specific users to a room without the need for passcode authentication
