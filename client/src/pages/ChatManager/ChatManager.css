@@ -20,9 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  -webkit-text-stroke: 1px #777777;
-  color: #e0e0e0;
+  font-weight: 900;
+  -webkit-text-stroke: 1.5px #70c295;
+  color: #ede889;
   font-size: 2rem;
 }
 
@@ -41,7 +41,7 @@
   position: absolute;
   top: 80px;
   left: 20px;
-  background: #f0f0f0;
+  background: #9ff7c6;
   height: calc(100% - 100px);
   width: calc(100% - 40px);
   display: flex;

@@ -4,24 +4,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  border-right: 1px solid grey;
+  border-right: 1px solid #44755a;
 }
 
 .chatRoomsPanel__toolbar {
   width: 100%;
+  flex: 0.05;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 5px 5px 10px;
-  color: #222;
-  background: #f0f0f0;
+  padding: 10px;
+  color: #365e48;
+  background: transparent;
+  border-bottom: 1px solid #44755a;
 }
 
 .chatRoomsPanel__toolbar__header {
   margin: 0px;
   font-weight: bold;
   font-size: 1rem;
-  color: #222;
+  color: #365e48;
 }
 
 .chatRoomsPanel__toolbar__buttons {
@@ -32,18 +34,19 @@
 }
 
 .chatRoomsPanel__searchContainer {
+  flex: 0.05;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: #cccccc;
+  background: #70c295;
   padding: 10px 5px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #44755a;
 }
 
 .chatRoomsPanel__searchBar {
   border-radius: 10px;
-  border: 1px solid #777777;
+  border: 1px solid #87844e;
   padding: 3px 5px;
   font-size: 1.1rem;
   width: 95%;
@@ -51,6 +54,7 @@
 }
 
 .chatRoomsPanel__chatRooms {
+  flex: 0.9;
   width: 100%;
   height: 100%;
   display: flex;

@@ -9,14 +9,14 @@
 
 .chatPanel__header {
   width: 100%;
-  background: #cccccc;
+  background: transparent;
   padding: 10px 10px;
   font-weight: bold;
-  color: #222222;
+  color: #365e48;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: solid 1px grey;
+  border-bottom: solid 1px #44755a;
   flex: 0.05;
 }
 
@@ -28,12 +28,12 @@
 
 .chatPanel__footer {
   width: 100%;
-  padding: 10px 30px;
+  padding: 4px 30px;
   justify-self: end;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #cccccc;
+  background: transparent;
   flex: 0.05;
 }
 
@@ -88,11 +88,11 @@
   justify-content: center;
   border-radius: 50%;
   border: none;
-  background: linear-gradient(#007fff, lightblue);
+  background: linear-gradient(to right, #88d7eb, #c5c7fa);
   color: white;
   cursor: pointer;
 }
 
 .chatPanel__submit:hover {
-  opacity: 0.7;
+  background: linear-gradient(to right, #77bcce, #a8acf8);
 }

@@ -3,19 +3,19 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: transparent;
-  border-bottom: 1px solid grey;
+  background-color: #b2f696;
+  border-bottom: 1px solid #527544;
   padding: 20px 0px;
   cursor: pointer;
 }
 
 .chatRoomCard__container:hover {
-  background-color: #d0d0d0;
+  background-color: #9bdc7f;
   transition: background-color 0.1s ease-in;
 }
 
 .chatRoomCard__container__active {
-  background-color: #d0d0d0;
+  background-color: #9bdc7f;
 }
 
 .chatRoomCard__left {
@@ -29,7 +29,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: orangered;
+  background: #ee9e8a;
   margin-left: 20px;
   animation: blink 1s infinite;
 }
@@ -45,7 +45,7 @@
 .chatRoomCard__roomName {
   font-weight: bold;
   font-size: 1.1rem;
-  color: black;
+  color: #415c35;
 }
 
 .chatRoomCard__right {

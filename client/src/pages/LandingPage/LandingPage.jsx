@@ -9,6 +9,7 @@ const LandingPage = () => {
   const userContext = useContext(UserContext);
 
   const [error, setError] = useState(null);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const nameRef = useRef();
 
@@ -46,12 +47,20 @@ const LandingPage = () => {
           id='name'
           name='name'
           ref={nameRef}
+          onChange={(event) => {
+            if (event.target.value === "" || !event.target.value) {
+              setButtonDisabled(true);
+            } else {
+              setButtonDisabled(false);
+            }
+          }}
         />
         {!!error && <span className='inputError__message'>{error.user}</span>}
         <button
-          className='landingPage__button'
+          className='button landingPage__button'
           type='submit'
           onClick={onSignUp}
+          disabled={buttonDisabled}
         >
           Submit
         </button>

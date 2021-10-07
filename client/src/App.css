@@ -4,7 +4,7 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  background: linear-gradient(to right, red, orange);
+  background: linear-gradient(to right, #88d7eb, #c5c7fa);
 }
 
 #root {
@@ -48,18 +48,18 @@ body {
 }
 
 .backgroundBlue {
-  background: #2979ff;
+  background: #bfecf9;
 }
 
 .backgroundLight {
-  background: #f3f3f3;
+  background: #e2e3fc;
 }
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #222;
+  color: #595733;
   cursor: pointer;
   background-color: transparent;
   padding: 1px;
@@ -67,7 +67,7 @@ body {
 }
 
 .icon:hover {
-  background-color: #999999;
+  background-color: #b9b56b;
   transition: background-color 0.1s ease-in;
 }
 
@@ -75,36 +75,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #222;
+  color: #595733;
   cursor: pointer;
-  background-color: #dddddd;
-  padding: 1px;
+  background-color: #ede889;
   border-radius: 5px;
   border: none;
   padding: 2px 5px;
 }
 
-.button:hover {
-  background-color: #999999;
+.button:hover:not(:disabled) {
+  background-color: #b9b56b;
   transition: background-color 0.1s ease-in;
 }
 
 .inputError {
-  border: 1px solid red;
+  border: 1px solid #f692c9;
 }
 
 .inputError__message {
   font-size: 0.7rem;
-  color: red;
+  color: #f692c9;
 }
 
 ::-webkit-scrollbar {
   width: 5px;
-  background: lightgrey;
+  background: #fbded8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #666;
+  background-color: #af7465;
   border-radius: 5px;
 }
 

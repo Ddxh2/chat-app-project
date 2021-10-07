@@ -10,11 +10,10 @@
   justify-content: center;
   padding: 5px 20px;
   border-radius: 30px;
-  box-shadow: 0px 0px 20px 1px lightgrey;
-  background: lightgrey;
+  background: #f8bdb0;
   width: 50%;
   font-weight: bold;
-  color: #222;
+  color: #4e5087;
 }
 
 .message__body__container {
@@ -25,15 +24,15 @@
 .message__body {
   max-width: 400px;
   padding: 10px;
-  box-shadow: 0px 0px 3px 2px #f0f0f0;
+  box-shadow: 0px 0px 3px 2px #e2e3fc;
   border-radius: 20px 20px 20px 0px;
-  background-color: #f0f0f0;
+  background-color: #e2e3fc;
   overflow-wrap: anywhere;
 }
 
 .message__body__user {
-  background-color: lightblue;
-  box-shadow: 0px 0px 3px 2px lightblue;
+  background-color: #bfecf9;
+  box-shadow: 0px 0px 3px 2px #bfecf9;
   border-radius: 20px 20px 0px 20px;
 }
 

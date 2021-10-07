@@ -12,7 +12,7 @@
 }
 
 .roomDetails__statsSection {
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #44755a;
   padding-bottom: 10px;
   width: 80%;
   display: flex;
@@ -22,7 +22,7 @@
 
 .roomDetails__tableCell {
   padding: 5px 10px;
-  color: #222;
+  color: #365e48;
   font-weight: bold;
   text-align: center;
 }
@@ -52,10 +52,10 @@
 
 .roomDetails__listHeader {
   font-weight: bold;
-  color: #222;
+  color: #365e48;
   font-size: 1.1rem;
   padding-bottom: 10px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #365e48;
   display: flex;
   align-items: center;
   justify-content: center;

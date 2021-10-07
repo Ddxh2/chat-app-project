@@ -17,14 +17,32 @@ const Modal = ({
   const [show, setShow] = useState(isShown);
 
   const handleClose = (event) => {
-    event.stopPropagation();
+    event?.stopPropagation?.();
     setShow(false);
     onClose();
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape" || event.code === "Escape") {
+      handleClose();
+    }
   };
 
   useEffect(() => {
     setShow(isShown);
   }, [isShown]);
+
+  useEffect(() => {
+    if (!!show) {
+      console.log("listener added");
+      document.addEventListener("keydown", handleKeyDown);
+      return () => {
+        console.log("listener removed");
+
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [show]);
 
   return !!show ? (
     <div className='modal__overlay' onClick={handleClose}>

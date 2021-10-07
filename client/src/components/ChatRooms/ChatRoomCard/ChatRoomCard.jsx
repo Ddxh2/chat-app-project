@@ -32,12 +32,12 @@ const ChatRoomCard = ({ room, onSelect }) => {
       onClick={onSelect}
     >
       <div className='chatRoomCard__left'>
-        {!!notification && <div className='chatRoomCard__notification' />}
         <div className='chatRoomCard__text'>
           <span className='chatRoomCard__roomName'>
             {ReactEmoji.emojify(name)}
           </span>
         </div>
+        {!!notification && <div className='chatRoomCard__notification' />}
       </div>
       <div className='chatRoomCard__right'>
         <div className='icon' onClick={handleLeaveRoom}>

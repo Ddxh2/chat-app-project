@@ -116,7 +116,7 @@ const Form = ({ onSubmit, formType }) => {
         </div>
       )}
       <button
-        className='form__button mt-20'
+        className='button form__button mt-20'
         type='submit'
         onClick={handleSubmit}
         disabled={

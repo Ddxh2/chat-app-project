@@ -8,8 +8,8 @@
 .promt__container {
   padding: 10px;
   border-radius: 10px 0px 10px 10px;
-  background: lightskyblue;
-  color: #222;
+  background: #bfecf9;
+  color: #395b63;
   font-weight: bold;
   font-size: 1rem;
   width: fit-content;
@@ -28,7 +28,7 @@
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid lightskyblue;
+  border-bottom: 10px solid #bfecf9;
   position: absolute;
   top: -10px;
   right: 0px;
@@ -36,13 +36,13 @@
 
 @keyframes halo {
   0% {
-    box-shadow: 0px 0px 10px 1px lightblue;
+    box-shadow: 0px 0px 10px 1px #88d7eb;
   }
   50% {
-    box-shadow: 0px 0px 10px 10px lightblue;
+    box-shadow: 0px 0px 10px 10px #88d7eb;
   }
 
   100% {
-    box-shadow: 0px 0px 10px 1px lightblue;
+    box-shadow: 0px 0px 10px 1px #88d7eb;
   }
 }
